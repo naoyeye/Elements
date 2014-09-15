@@ -1,0 +1,358 @@
+/*
+* @Author: Jiyun
+* @Date:   2014-09-12 13:19:21
+* @Last Modified by:   Jiyun
+* @Last Modified time: 2014-09-12 17:25:45
+*/
+
+
+@import "compass";
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities/general/hacks";
+
+@import "mixins/media-queries";
+@import "mixins/retina";
+
+$font-base: "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$green: #3BAA24;
+$cyanine: #4CC9B6;
+$light-gray: #e5e5e5;
+
+$icons: sprite-map("icons/*.png", $spacing: 10px);
+$icons-2x: sprite-map("icons-2x/*.png", $spacing: 10px);
+
+// retina
+@mixin retina() {
+    @media only screen and (min--moz-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (min-device-pixel-ratio: 2) {
+        @content;
+    }
+}
+
+// landscape
+@mixin landscape() {
+    @media screen and (orientation: landscape),
+    screen and (-moz-orientation: landscape),
+    screen and (-o-orientation: landscape),
+    screen and (-webkit-orientation: landscape) {
+        @content;
+    }
+}
+
+// // landscape + retina
+// @mixin landscapeAndRetina() {
+//     @media only screen and (min--moz-device-pixel-ratio: 2),
+//     only screen and (-o-min-device-pixel-ratio: 2/1),
+//     only screen and (-webkit-min-device-pixel-ratio: 2, orientation: landscape),
+//     only screen and (min-device-pixel-ratio: 2, orientation: landscape) {
+//         @content;
+//     }
+// }
+
+
+.hide {
+    display: none;
+}
+
+body {
+    background: #fff;
+    font-family: $font-base;
+    line-height: 1.78;
+    font-size: 14px;
+    color: #333;
+    background: #e6e5e5;
+    -webkit-overflow-scrolling: touch;
+    -webkit-font-smoothing: antialiased;
+}
+
+section {
+    display: block;
+    margin: 5px 5px 20px 5px;
+
+    h2 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 12px;
+        line-height: 1.78;
+    }
+
+    .action {
+        font-size: 12px;
+        margin: 20px 0;
+
+        a {
+            @include inline-block();
+            @include border-radius(50%);
+
+            height: 40px;
+            width: 40px;
+            line-height: 39px;
+            text-align: center;
+            text-decoration: none;
+            -webkit-tap-highlight-color:transparent;
+        }
+
+        a[data-mode='light'] {
+            background: #fff;
+            color: #333;
+        }
+
+        a[data-mode='dark'] {
+            background: #333;
+            color: #fff;
+        }
+    }
+}
+
+#device {
+    height: 40px;
+    padding: 0 10px;
+    background: #333;
+    line-height: 40px;
+    color: #fff;
+
+    h2 {
+        float: left;
+        font-size: 12px;
+    }
+
+    ul{
+        float: left;
+        font-size: 0;
+    }
+
+    li {
+        @include inline-block();
+
+        font-size: 12px;
+    }
+}
+
+
+.share {
+    height: 40px;
+    line-height: 39px;
+
+    dd {
+        @include inline-block();
+
+        margin-right: 5px;
+        vertical-align: top;
+    }
+
+    dd a {
+        display: block;
+        width: 40px;
+        -webkit-tap-highlight-color:transparent;
+    }
+
+    dd span {
+        display: none;
+        text-indent: -999em;
+        font-size: 0;
+        line-height: 0;
+    }
+
+    dd i {
+        @include inline-block();
+    }
+
+    .share-weibo i {
+        @include use-sprite('weibo');
+    }
+
+    .share-douban i {
+        @include use-sprite('douban');
+    }
+
+    .share-wechat i {
+        @include use-sprite('wechat');
+    }
+
+    .share-qzone i {
+        @include use-sprite('qzone');
+    }
+}
+
+.share-wrap.dark .share {
+    .share-weibo i {
+        @include use-sprite('weibo-white');
+    }
+
+    .share-douban i {
+        @include use-sprite('douban-white');
+    }
+
+    .share-wechat i {
+        @include use-sprite('wechat-white');
+    }
+
+    .share-qzone i {
+        @include use-sprite('qzone-white');
+    }
+}
+
+
+.share-wrap.light {
+    background: #fff;
+}
+
+.share-wrap.dark {
+    background: #333;
+}
+
+@include min-screen(300px) {
+
+    #device-mobile {
+        display: block;
+    }
+
+    #mobile,
+    #mobile-retina,
+    #mobile-landscape,
+    #mobile-retina-landscape {
+        display: none;
+    }
+
+    #mobile {
+        display: block;
+    }
+
+    @include retina() {
+        #mobile,
+        #mobile-retina,
+        #mobile-landscape,
+        #mobile-retina-landscape {
+            display: none;
+        }
+
+        #mobile-retina {
+            display: block;
+        }
+    }
+
+    @include landscape() {
+        #mobile,
+        #mobile-retina,
+        #mobile-landscape,
+        #mobile-retina-landscape {
+            display: none;
+        }
+
+        #mobile-landscape {
+            display: block;
+        }
+    }
+
+    @include retina() {
+        @include landscape() {
+            #mobile,
+            #mobile-retina,
+            #mobile-landscape,
+            #mobile-retina-landscape {
+                display: none;
+            }
+
+            #mobile-retina-landscape {
+                display: block;
+            }
+        }
+    }
+}
+
+
+@include min-screen(768px) {
+
+    #device-mobile {
+        display: none;
+    }
+
+    #device-pad {
+        display: block;
+    }
+
+    #pad,
+    #pad-retina,
+    #pad-landscape,
+    #pad-retina-landscape {
+        display: none;
+    }
+
+    #pad {
+        display: block;
+    }
+
+    @include retina() {
+        #pad,
+        #pad-retina,
+        #pad-landscape,
+        #pad-retina-landscape {
+            display: none;
+        }
+
+        #pad-retina {
+            display: block;
+        }
+    }
+
+    @include landscape() {
+        #pad,
+        #pad-retina,
+        #pad-landscape,
+        #pad-retina-landscape {
+            display: none;
+        }
+
+        #pad-landscape {
+            display: block;
+        }
+    }
+
+    @include retina() {
+        @include landscape() {
+            #pad,
+            #pad-retina,
+            #pad-landscape,
+            #pad-retina-landscape {
+                display: none;
+            }
+
+            #pad-retina-landscape {
+                display: block;
+            }
+        }
+    }
+}
+
+
+@include min-screen(1025px) {
+
+    #device-mobile {
+        display: none;
+    }
+
+    #device-pad {
+        display: none;
+    }
+
+    #device-pc {
+        display: block;
+    }
+
+    #pc {
+        display: block;
+    }
+
+    @include retina() {
+        #pc-retina {
+            display: block;
+        }
+    }
+
+}
