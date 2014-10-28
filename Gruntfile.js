@@ -33,6 +33,16 @@ module.exports = function (grunt) {
                     spawn: false
                 }
             },
+            // jade
+            jade: {
+                files: [
+                    '<%= paths.app %>/jade/*.jade'
+                ],
+                tasks: ['jade:server'],
+                options: {
+                    spawn: false
+                }
+            },
             livereload: {
                 files: [
                     '<%= paths.app %>/**/*.html',
@@ -50,6 +60,20 @@ module.exports = function (grunt) {
                 files: ['Gruntfile.js'],
                 options: {
                     reload: true
+                }
+            }
+        },
+        // jade
+        jade: {
+            server: {
+                files: {
+                    '<%= paths.app %>': ['<%= paths.app %>/jade/*.jade'],
+                },
+                options: {
+                    client: false,
+                    runtime: false,
+                    wrap: false,
+                    pretty: true
                 }
             }
         },
